@@ -91,7 +91,8 @@ describe FaradayMiddleware::Caching do
       app.call(env).on_complete do
         raise "no headers" unless env[:response_headers].is_a? Hash
         raise "no response" unless env[:response].is_a? Faraday::Response
-        raise "env not identical" unless env[:response].env.object_id == env.object_id
+        # see https://github.com/lostisland/faraday/blob/master/lib/faraday/rack_builder.rb#L139
+        # raise "env not identical" unless env[:response].env.object_id == env.object_id
       end
     end
   end
